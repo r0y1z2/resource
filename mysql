@@ -1,0 +1,6 @@
+command: mysql -e "alter user root@'localhost' identified by 'Huawei@123';"
+
+"create database WP character set = utf8mb4;"
+CREATE USER wp@'%' identified by 'Huawei@123';
+GRANT ALL PRIVILEGES ON WP.* TO 'wp'@'%';
+FLUSH PRIVILEGES;

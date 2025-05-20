@@ -1,0 +1,72 @@
+- hosts: Gluster
+remote_user: root
+gather_facts: no
+tasks:
+- name: create mount brick1
+file:
+path: /mnt/point1
+state: directory
+- name: create mount brick2
+file:
+path: /mnt/point2
+state: directory
+- name: install parted
+yum:
+name: parted
+state: present
+- name: create part1
+parted:
+device: /dev/vdb
+number: 1
+part_end: 5GiB
+state: present
+- name: create part2
+parted:
+device: /dev/vdb
+number: 2
+part_start: 5GiB
+part_end: 10GiB
+state: present 
+                   part_start: 5GIB
+                    part_end: 10GIB
+                    state: present
+
+          - name: install xfsprogs
+            yum:
+                    name: xfsprogs
+                    state:present
+
+          - name: foramt vdb1
+            filesystem:
+                    dev: /dev/vdb1
+                    fstype: xfs
+                    force: yes
+
+          - name: format vdb2
+            filesystem:
+                    dev: /dev/vdb1
+                    fstype: xfs
+                    force: yes
+
+          - name: mount vdb1
+            mount:
+                    src: /dev/vdb1
+                    path: /mnt/point1
+                    fstype: xfs
+                    state: mounted
+          - name: mount vdb2
+            mount:
+                    src: /dev/vdb2
+                    path: /mnt/point2
+                    fstype: xfs
+                    state: mounted
+
+          - name: config hosts
+            lineinfile:
+                    path: /etc/hosts
+                    line: "{{ item }}"
+                    state: present
+            with_items:
+                    - '10.0.0.21 Gluster-01'
+                    - '10.0.0.22 Gluster-02'
+                    - '10.0.0.24 Gluster-03'

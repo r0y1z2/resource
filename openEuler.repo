@@ -1,0 +1,5 @@
+[openEuler]
+baseurl=https://repo.openeuler.org/openEuler-22.03-LTS/everything/x86_64/
+enabled=1
+gpgcheck=1
+gpgkey=https://repo.openeuler.org/openEuler-22.03-LTS/everything/x86_64/RPM-GPG-KEY-openEuler

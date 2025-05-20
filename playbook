@@ -1,0 +1,22 @@
+- hosts: Gluster
+    remote_user: root
+    gather_facts: no
+    tasks:
+       - name: set hostname for Gluster
+          hostname:
+             name=Gluster-{{ host }}
+       - name: install php-mysqlnd/dns
+         yum:
+            name: php-mysqlnd/bind
+            state: present
+- name: config port of php
+  lineinfile:
+          path: /etc/php-fpm.d/www.conf
+          insertafter: "listen.allowed_clients = 127.0.0.1"
+          line: "listen = 9000"
+- name: enable and start php/named
+  service:
+          name: php-fpm/named
+          state: started
+          enabled: yes
+
