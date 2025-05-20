@@ -4,3 +4,5 @@ command: mysql -e "alter user root@'localhost' identified by 'Huawei@123';"
 CREATE USER wp@'%' identified by 'Huawei@123';
 GRANT ALL PRIVILEGES ON WP.* TO 'wp'@'%';
 FLUSH PRIVILEGES;
+
+select host,userfrommysql.user;

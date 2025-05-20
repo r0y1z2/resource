@@ -14,6 +14,10 @@
           path: /etc/php-fpm.d/www.conf
           insertafter: "listen.allowed_clients = 127.0.0.1"
           line: "listen = 9000"
+
+          path:/ete/httpd/conf/httpd.conf
+	  insertafter:AddTypeapplication/x-gzip gz tgz
+	  Iine: "	AddTypeapplication/x-httpd-php .php"
 - name: enable and start php/named
   service:
           name: php-fpm/named
